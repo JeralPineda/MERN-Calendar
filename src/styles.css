@@ -60,16 +60,30 @@ html {
    padding: 10px;
 }
 
-@media (max-width: 990px) {
-   .modal {
-      max-height: 550px;
-      max-width: 380px;
-   }
+/* Datepicker */
+.react-datetime-picker input:focus {
+   outline: none;
 }
 
-@media (max-width: 700px) {
+.react-datetime-picker__wrapper {
+   border: 0px solid gray !important;
+}
+
+@media (max-width: 320px) {
+   /* Modal */
    .modal {
-      max-height: 400px;
-      max-width: 280px;
+      max-height: 100vh;
+      max-width: 100vw;
+      overflow-y: scroll;
+   }
+
+   .modal::-webkit-scrollbar {
+      -webkit-appearance: none;
+   }
+
+   /* Datepicker */
+   .react-datetime-picker {
+      padding-left: 2px;
+      font-size: 15px;
    }
 }
