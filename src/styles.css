@@ -3,6 +3,12 @@ html {
    width: 100vw;
 }
 
+/* Navbar */
+.bg-dark {
+   background-color: #0062cc !important;
+}
+
+/* Calendario */
 .calendar-screen {
    display: flex;
    flex-flow: column;
@@ -11,4 +17,59 @@ html {
 
 .rbc-calendar {
    height: 100%;
+}
+
+/* Modal */
+.ReactModalPortal > div {
+   opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+   align-items: center;
+   display: flex;
+   justify-content: center;
+   transition: opacity 0.2s ease-in-out;
+   z-index: 999;
+}
+
+.modal-fondo {
+   background-color: rgba(0, 0, 0, 0.3);
+   bottom: 0;
+   left: 0;
+   right: 0;
+   top: 0;
+   position: fixed;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+   opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+   opacity: 0;
+}
+
+.modal {
+   background: white;
+   border-radius: 5px;
+   color: rgb(51, 51, 51);
+   display: inline;
+   max-height: 620px;
+   max-width: 500px;
+   outline: none;
+   padding: 10px;
+}
+
+@media (max-width: 990px) {
+   .modal {
+      max-height: 550px;
+      max-width: 380px;
+   }
+}
+
+@media (max-width: 700px) {
+   .modal {
+      max-height: 400px;
+      max-width: 280px;
+   }
 }
