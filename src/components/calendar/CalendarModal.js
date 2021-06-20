@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from 'react-modal';
@@ -37,6 +37,8 @@ const initEvent = {
 
 export const CalendarModal = () => {
    const { modalOpen } = useSelector((state) => state.ui);
+   const { activeEvent } = useSelector((state) => state.calendar);
+
    const dispatch = useDispatch();
 
    const [dateStart, setDateStart] = useState(now.toDate()); //fecha inicio
@@ -48,6 +50,14 @@ export const CalendarModal = () => {
 
    const { notes, title, start, end } = formValues;
 
+   useEffect(() => {
+      if (activeEvent) {
+         setFormValues(activeEvent);
+      }
+      console.log(activeEvent);
+   }, [activeEvent]);
+
+   //    efecto para mostrar la info del evento al dar doble click en el
    const handleInputChange = ({ target }) => {
       setFormValues({
          ...formValues,
