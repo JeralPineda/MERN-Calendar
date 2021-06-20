@@ -52,7 +52,7 @@ export const calendarReducer = (state = initialState, action) => {
          return {
             ...state,
             events: state.events.filter(
-               (e) => e.id !== action.activeEvent.id //eliminar el evento
+               (e) => e.id !== state.activeEvent.id //eliminar el evento
             ),
             activeEvent: null,
          };
