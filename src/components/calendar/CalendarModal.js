@@ -54,7 +54,6 @@ export const CalendarModal = () => {
       if (activeEvent) {
          setFormValues(activeEvent);
       }
-      console.log(activeEvent);
    }, [activeEvent]);
 
    //    efecto para mostrar la info del evento al dar doble click en el
