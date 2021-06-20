@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew, eventClearActiveEvent } from '../../actions/events';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../../actions/events';
 
 // Las constantes o variables afuera, es para que no se vuelva a generar cada vez que hay un cambio
 
@@ -105,17 +105,22 @@ export const CalendarModal = () => {
          return setTitleValid(false);
       }
 
-      //   Realizar grabación en base de datos
-      dispatch(
-         eventAddNew({
-            ...formValues,
-            id: new Date().getTime(),
-            user: {
-               _id: '1234',
-               name: 'Jeral',
-            },
-         })
-      );
+      if (activeEvent) {
+         //   si el evento esta activo se actualiza
+         dispatch(eventUpdated(formValues));
+      } else {
+         //   Si el evento esta en null se crea el evento
+         dispatch(
+            eventAddNew({
+               ...formValues,
+               id: new Date().getTime(),
+               user: {
+                  _id: '1234',
+                  name: 'Jeral',
+               },
+            })
+         );
+      }
 
       setTitleValid(true);
       closeModal();
