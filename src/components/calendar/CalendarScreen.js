@@ -24,7 +24,7 @@ export const CalendarScreen = () => {
    const dispatch = useDispatch();
 
    //    TODO: Leer los events del store
-   const { events } = useSelector((state) => state.calendar);
+   const { events, activeEvent } = useSelector((state) => state.calendar);
    //    console.log(events);
 
    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
@@ -79,7 +79,11 @@ export const CalendarScreen = () => {
          />
 
          <AddNewFab />
-         <DeleteEventFab />
+
+         {
+            //  Si el evnto esta activo se muestra el componente(botón eliminar)
+            activeEvent && <DeleteEventFab />
+         }
 
          <CalendarModal />
       </div>
