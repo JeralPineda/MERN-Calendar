@@ -69,6 +69,16 @@ html {
    border: 0px solid gray !important;
 }
 
+/* FABS botón agregar nuevo evento */
+.fab {
+   border-radius: 100%;
+   bottom: 25px;
+   font-size: 25px;
+   padding: 18px;
+   position: fixed;
+   right: 25px;
+}
+
 @media (max-width: 320px) {
    /* Modal */
    .modal-h1 {
@@ -88,5 +98,10 @@ html {
    .react-datetime-picker {
       padding-left: 2px;
       font-size: 15px;
+   }
+
+   /* FABS botón agregar nuevo evento */
+   .fab {
+      padding: 16px;
    }
 }
