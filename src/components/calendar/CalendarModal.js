@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
 import { eventAddNew } from '../../actions/events';
 
+// Las constantes o variables afuera, es para que no se vuelva a generar cada vez que hay un cambio
+
 const customStyles = {
    content: {
       top: '50%',
@@ -26,6 +28,13 @@ const now = moment().minutes(0).seconds(0).add(1, 'hours'); // 3:45:50
 // hora fin, 1 hora mas
 const after = now.clone().add(1, 'hours'); // 3:45:50
 
+const initEvent = {
+   title: '',
+   notes: '',
+   start: now.toDate(),
+   end: after.toDate(),
+};
+
 export const CalendarModal = () => {
    const { modalOpen } = useSelector((state) => state.ui);
    const dispatch = useDispatch();
@@ -35,12 +44,7 @@ export const CalendarModal = () => {
 
    const [titleValid, setTitleValid] = useState(true); //validaciones
 
-   const [formValues, setFormValues] = useState({
-      title: 'Evento',
-      notes: '',
-      start: now.toDate(),
-      end: after.toDate(),
-   });
+   const [formValues, setFormValues] = useState(initEvent);
 
    const { notes, title, start, end } = formValues;
 
@@ -53,6 +57,7 @@ export const CalendarModal = () => {
 
    const closeModal = () => {
       dispatch(uiCloseModal());
+      setFormValues(initEvent); //limpiar el form del modal
    };
 
    const handleStartDateChange = (e) => {
