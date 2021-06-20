@@ -9,6 +9,7 @@ import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
+import { eventSetActive } from '../../actions/events';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/es'; //Cambiar idioma al calendario(fechas)
@@ -42,7 +43,7 @@ export const CalendarScreen = () => {
    };
 
    const onSelectEvent = (e) => {
-      console.log(e);
+      dispatch(eventSetActive(e));
    };
 
    const onViewChange = (e) => {
