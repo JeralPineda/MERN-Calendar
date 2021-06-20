@@ -79,6 +79,15 @@ html {
    right: 25px;
 }
 
+/* FABS borrar evento activo */
+.fab-danger {
+   bottom: 25px;
+   font-size: 25px;
+   padding: 10px;
+   position: fixed;
+   left: 25px;
+}
+
 @media (max-width: 320px) {
    /* Modal */
    .modal-h1 {
@@ -103,5 +112,10 @@ html {
    /* FABS botón agregar nuevo evento */
    .fab {
       padding: 16px;
+   }
+
+   /* FABS borrar evento activo */
+   .fab-danger {
+      font-size: 22px;
    }
 }

@@ -11,6 +11,7 @@ import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
 import { eventSetActive } from '../../actions/events';
 import { AddNewFab } from '../ui/AddNewFab';
+import { DeleteEventFab } from '../ui/DeleteEventFab';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/es'; //Cambiar idioma al calendario(fechas)
@@ -78,6 +79,7 @@ export const CalendarScreen = () => {
          />
 
          <AddNewFab />
+         <DeleteEventFab />
 
          <CalendarModal />
       </div>
