@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 const customStyles = {
    content: {
@@ -25,6 +26,8 @@ export const CalendarModal = () => {
    const [dateStart, setDateStart] = useState(now.toDate()); //fecha inicio
    const [dateEnd, setDateEnd] = useState(after.toDate()); //fecha fin
 
+   const [titleValid, setTitleValid] = useState(true); //validaciones
+
    const [formValues, setFormValues] = useState({
       title: 'Evento',
       notes: '',
@@ -32,7 +35,7 @@ export const CalendarModal = () => {
       end: after.toDate(),
    });
 
-   const { notes, title } = formValues;
+   const { notes, title, start, end } = formValues;
 
    const handleInputChange = ({ target }) => {
       setFormValues({
@@ -42,7 +45,7 @@ export const CalendarModal = () => {
    };
 
    const closeModal = () => {
-      //   setIsOpen(false);
+      //  TODO: cerrar el modal
    };
 
    const handleStartDateChange = (e) => {
@@ -66,7 +69,23 @@ export const CalendarModal = () => {
    const handleSubmitEvent = (e) => {
       e.preventDefault();
 
-      console.log(formValues);
+      const momentStart = moment(start);
+      const momentEnd = moment(end);
+
+      // Validaciones formulario
+      if (momentStart.isSameOrAfter(momentEnd)) {
+         //   si la fecha de inicio es igual o esta después es error
+         return Swal.fire('Error', 'La fecha fin debe de ser mayor a la fecha de inicio', 'error');
+      }
+
+      if (title.trim().length < 2) {
+         return setTitleValid(false);
+      }
+
+      //   TODO: Realizar grabación en base de datos
+
+      setTitleValid(true);
+      closeModal();
    };
 
    return (
@@ -111,7 +130,7 @@ export const CalendarModal = () => {
 
                <input
                   type='text' //
-                  className='form-control'
+                  className={`form-control ${!titleValid && 'is-invalid'}`}
                   placeholder='Título del evento'
                   name='title'
                   autoComplete='off'
