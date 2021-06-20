@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew } from '../../actions/events';
+import { eventAddNew, eventClearActiveEvent } from '../../actions/events';
 
 // Las constantes o variables afuera, es para que no se vuelva a generar cada vez que hay un cambio
 
@@ -67,6 +67,7 @@ export const CalendarModal = () => {
 
    const closeModal = () => {
       dispatch(uiCloseModal());
+      dispatch(eventClearActiveEvent()); //acción limpiar activeEvent
       setFormValues(initEvent); //limpiar el form del modal
    };
 
