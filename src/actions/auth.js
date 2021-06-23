@@ -58,8 +58,6 @@ export const startChecking = () => {
 
       const body = await resp.json();
 
-      console.log(body);
-
       //   Si el body es ok: true guardamos el token en localstorage
       if (body.ok) {
          localStorage.setItem('x-token', body.token);
