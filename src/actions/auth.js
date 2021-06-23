@@ -70,8 +70,6 @@ export const startChecking = () => {
             })
          );
       } else {
-         Swal.fire('Error', body.msg, 'error');
-
          //  disparamos la acción
          dispatch(checkingFinish());
       }
