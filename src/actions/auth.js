@@ -54,9 +54,11 @@ export const startRegister = (email, password, name) => {
 export const startChecking = () => {
    return async (dispatch) => {
       //    Petición login
-      const resp = await fetchConToken('renew');
+      const resp = await fetchConToken('auth/renew');
 
       const body = await resp.json();
+
+      console.log(body);
 
       //   Si el body es ok: true guardamos el token en localstorage
       if (body.ok) {
@@ -71,6 +73,9 @@ export const startChecking = () => {
          );
       } else {
          Swal.fire('Error', body.msg, 'error');
+
+         //  disparamos la acción
+         dispatch(checkingFinish());
       }
    };
 };
@@ -79,4 +84,9 @@ export const startChecking = () => {
 const login = (user) => ({
    type: types.authLogin,
    payload: user,
+});
+
+// acción si el token no es correcto
+const checkingFinish = () => ({
+   type: types.authCheckingFinish,
 });
