@@ -27,6 +27,30 @@ export const startLogin = (email, password) => {
    };
 };
 
+export const startRegister = (email, password, name) => {
+   return async (dispatch) => {
+      //    Petición login
+      const resp = await fetchSinToken('auth/new', { email, password, name }, 'POST');
+
+      const body = await resp.json();
+
+      //   Si el body es ok: true guardamos el token en localstorage
+      if (body.ok) {
+         localStorage.setItem('x-token', body.token);
+         localStorage.setItem('token-init-date', new Date().getTime()); //fecha en que se creo el token
+
+         dispatch(
+            login({
+               uid: body.uid,
+               name: body.name,
+            })
+         );
+      } else {
+         Swal.fire('Error', body.msg, 'error');
+      }
+   };
+};
+
 export const startChecking = () => {
    return async (dispatch) => {
       //    Petición login
