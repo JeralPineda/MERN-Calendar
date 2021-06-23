@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 
 import { startChecking } from '../actions/auth';
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { CalendarScreen } from '../components/calendar/CalendarScreen';
 import { Loader } from '../components/loader/Loader';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
-   const { checking } = useSelector((state) => state.auth);
+   const { checking, uid } = useSelector((state) => state.auth);
 
    const dispatch = useDispatch();
 
@@ -24,9 +26,19 @@ export const AppRouter = () => {
       <Router>
          <div>
             <Switch>
-               <Route exact path='/login' component={LoginScreen} />
+               <PublicRoute
+                  exact //
+                  path='/login'
+                  component={LoginScreen}
+                  isAuthenticated={!!uid} //!! si tengo información
+               />
 
-               <Route exact path='/' component={CalendarScreen} />
+               <PrivateRoute
+                  exact
+                  path='/'
+                  component={CalendarScreen}
+                  isAuthenticated={!!uid} //!! si tengo información
+               />
 
                <Redirect to='/' />
             </Switch>
