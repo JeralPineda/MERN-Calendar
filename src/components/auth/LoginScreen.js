@@ -11,10 +11,10 @@ export const LoginScreen = () => {
 
    const [formLoginValues, handleLoginInputChange] = useForm({
       lEmail: 'jeral@gmail.com',
-      lPaswword: '123456',
+      lPassword: '123456',
    });
 
-   const { lEmail, lPaswword } = formLoginValues;
+   const { lEmail, lPassword } = formLoginValues;
 
    //  Effecto en los formularios de login y registro
    const toggleForm = (e) => {
@@ -26,7 +26,7 @@ export const LoginScreen = () => {
    const handleLogin = (e) => {
       e.preventDefault();
 
-      dispatch(startLogin(lEmail, lPaswword));
+      dispatch(startLogin(lEmail, lPassword));
    };
 
    return (
@@ -52,8 +52,8 @@ export const LoginScreen = () => {
                      <input
                         type='password' //
                         placeholder='Contraseña'
-                        name='lPaswword'
-                        value={lPaswword}
+                        name='lPassword'
+                        value={lPassword}
                         onChange={handleLoginInputChange}
                      />
 
