@@ -88,6 +88,41 @@ html {
    left: 25px;
 }
 
+/* Loader */
+.loader {
+   animation: spin 1.5s linear infinite;
+   border: 4px solid rgba(0, 0, 0, 0.1);
+   border-radius: 50%;
+   border-left-color: #0062cc;
+   bottom: 0;
+   height: 36px;
+   left: 50%;
+   position: fixed;
+   right: 0;
+   top: 50%;
+   width: 36px;
+}
+
+.loader-background {
+   height: 100vh;
+   position: absolute;
+   min-width: 100vw;
+   min-height: 100vh;
+   max-width: 100vw;
+   max-height: 100vh;
+   width: 100vw;
+   z-index: 9999;
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
+}
+
 @media (max-width: 320px) {
    /* Modal */
    .modal-h1 {
