@@ -76,6 +76,15 @@ export const startChecking = () => {
    };
 };
 
+export const startLogout = () => {
+   return (dispatch) => {
+      //    limpiamos el localstorage
+      localStorage.clear();
+
+      dispatch(logout());
+   };
+};
+
 // acción para guardar el usuario autenticado en el state
 const login = (user) => ({
    type: types.authLogin,
@@ -85,4 +94,9 @@ const login = (user) => ({
 // acción si el token no es correcto
 const checkingFinish = () => ({
    type: types.authCheckingFinish,
+});
+
+// acción cerrar sesión
+const logout = () => ({
+   type: types.authLogout,
 });
