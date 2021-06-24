@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -9,7 +9,7 @@ import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
-import { eventClearActiveEvent, eventSetActive } from '../../actions/events';
+import { eventClearActiveEvent, eventSetActive, eventStartLoading } from '../../actions/events';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
@@ -28,6 +28,11 @@ export const CalendarScreen = () => {
    //    console.log(events);
 
    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+
+   //    efecto para disparar la acción que muestra los eventos
+   useEffect(() => {
+      dispatch(eventStartLoading());
+   }, [dispatch]);
 
    const onDoubleClick = (e) => {
       //   console.log(e);
