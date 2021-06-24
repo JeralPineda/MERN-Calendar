@@ -1,6 +1,36 @@
+import Swal from 'sweetalert2';
+
+import { fetchConToken } from '../helpers/fetch';
 import { types } from '../types/types';
 
-export const eventAddNew = (event) => ({
+export const eventStartAddNew = (event) => {
+   return async (dispatch, getState) => {
+      //    Obtener info del user desde el state
+      const { uid, name } = getState().auth;
+
+      try {
+         const resp = await fetchConToken('events', event, 'POST');
+         const body = await resp.json();
+
+         if (body.ok) {
+            event.id = body.evento.id;
+            event.user = {
+               _id: uid,
+               name: name,
+            };
+
+            dispatch(eventAddNew(event));
+         } else {
+            Swal.fire('Error', body.msg, 'error');
+         }
+      } catch (error) {
+         console.log(error);
+         Swal.fire('Error', 'No se pudo crear la nota', 'error');
+      }
+   };
+};
+
+const eventAddNew = (event) => ({
    type: types.eventAddNew,
    payload: event,
 });
