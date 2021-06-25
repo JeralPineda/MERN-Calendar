@@ -43,7 +43,25 @@ export const eventStartLoading = () => {
          dispatch(eventLoaded(events));
       } catch (error) {
          console.log(error);
-         Swal.fire('Error', 'No se encontraron notas', 'error');
+         Swal.fire('Error', 'No se encontraron eventos', 'error');
+      }
+   };
+};
+
+export const eventStartUpdated = (event) => {
+   return async (dispatch) => {
+      try {
+         const resp = await fetchConToken(`events/${event.id}`, event, 'PUT');
+         const body = await resp.json();
+
+         if (body.ok) {
+            dispatch(eventUpdated(event));
+         } else {
+            Swal.fire('Error', body.msg, 'error');
+         }
+      } catch (error) {
+         console.log(error);
+         Swal.fire('Error', 'No se pudo actualizar el evento', 'error');
       }
    };
 };
@@ -62,7 +80,7 @@ export const eventClearActiveEvent = () => ({
    type: types.eventClearActiveEvent,
 });
 
-export const eventUpdated = (event) => ({
+const eventUpdated = (event) => ({
    type: types.eventUpdated,
    payload: event,
 });
