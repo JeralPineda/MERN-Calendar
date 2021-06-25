@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
 
+import { types } from '../types/types';
 import { fetchConToken } from '../helpers/fetch';
 import { prepareEvents } from '../helpers/prepareEvents';
-import { types } from '../types/types';
 
 export const eventStartAddNew = (event) => {
    return async (dispatch, getState) => {
@@ -105,9 +105,8 @@ const eventUpdated = (event) => ({
    payload: event,
 });
 
-const eventDeleted = (event) => ({
+const eventDeleted = () => ({
    type: types.eventDeleted,
-   payload: event,
 });
 
 const eventLoaded = (events) => ({
