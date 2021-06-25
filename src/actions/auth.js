@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 
 import { fetchSinToken, fetchConToken } from '../helpers/fetch';
 import { types } from '../types/types';
+import { eventLogout } from './events';
 
 export const startLogin = (email, password) => {
    return async (dispatch) => {
@@ -100,10 +101,4 @@ const checkingFinish = () => ({
 // acción cerrar sesión
 const logout = () => ({
    type: types.authLogout,
-});
-
-// acción para limpiar los eventos del store al hacer logout
-// debido a que al activar una nota y salir y volver a entrar se mantenía activo el botón de eliminar
-export const eventLogout = () => ({
-   type: types.eventLogout,
 });

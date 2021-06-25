@@ -114,3 +114,9 @@ const eventLoaded = (events) => ({
    type: types.eventLoaded,
    payload: events,
 });
+
+// acción para limpiar los eventos del store al hacer logout
+// debido a que al activar una nota y salir y volver a entrar se mantenía activo el botón de eliminar
+export const eventLogout = () => ({
+   type: types.eventLogout,
+});
