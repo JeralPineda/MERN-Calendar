@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 
 import { fetchConToken } from '../helpers/fetch';
+import { prepareEvents } from '../helpers/prepareEvents';
 import { types } from '../types/types';
 
 export const eventStartAddNew = (event) => {
@@ -36,8 +37,9 @@ export const eventStartLoading = () => {
          const resp = await fetchConToken('events');
          const body = await resp.json();
 
-         const events = body.eventos;
+         const events = prepareEvents(body.eventos);
 
+         //  Mandar los eventos al reducer para que los muestre
          dispatch(eventLoaded(events));
       } catch (error) {
          console.log(error);
