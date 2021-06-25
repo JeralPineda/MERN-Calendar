@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+
 import { uiCloseModal } from '../../actions/ui';
 import { eventClearActiveEvent, eventStartAddNew, eventStartUpdated } from '../../actions/events';
 
@@ -20,6 +21,7 @@ const customStyles = {
       transform: 'translate(-50%, -50%)',
    },
 };
+
 Modal.setAppElement('#root');
 
 // hora inicio
