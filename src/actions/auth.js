@@ -82,6 +82,7 @@ export const startLogout = () => {
       localStorage.clear();
 
       dispatch(logout());
+      dispatch(eventLogout());
    };
 };
 
@@ -99,4 +100,10 @@ const checkingFinish = () => ({
 // acción cerrar sesión
 const logout = () => ({
    type: types.authLogout,
+});
+
+// acción para limpiar los eventos del store al hacer logout
+// debido a que al activar una nota y salir y volver a entrar se mantenía activo el botón de eliminar
+export const eventLogout = () => ({
+   type: types.eventLogout,
 });
