@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
-import { eventClearActiveEvent, eventStartAddNew, eventUpdated } from '../../actions/events';
+import { eventClearActiveEvent, eventStartAddNew, eventStartUpdated } from '../../actions/events';
 
 // Las constantes o variables afuera, es para que no se vuelva a generar cada vez que hay un cambio
 
@@ -56,7 +56,7 @@ export const CalendarModal = () => {
       } else {
          setFormValues(initEvent); //limpiar modal
       }
-   }, [activeEvent]);
+   }, [activeEvent, setFormValues]);
 
    //    efecto para mostrar la info del evento al dar doble click en el
    const handleInputChange = ({ target }) => {
@@ -108,7 +108,7 @@ export const CalendarModal = () => {
 
       if (activeEvent) {
          //   si el evento esta activo se actualiza
-         dispatch(eventUpdated(formValues));
+         dispatch(eventStartUpdated(formValues));
       } else {
          //   Si el evento esta en null se crea el evento
          dispatch(eventStartAddNew(formValues));
