@@ -66,6 +66,26 @@ export const eventStartUpdated = (event) => {
    };
 };
 
+export const eventStartDelete = () => {
+   return async (dispatch, getState) => {
+      const { id } = getState().calendar.activeEvent;
+
+      try {
+         const resp = await fetchConToken(`events/${id}`, {}, 'DELETE');
+         const body = await resp.json();
+
+         if (body.ok) {
+            dispatch(eventDeleted());
+         } else {
+            Swal.fire('Error', body.msg, 'error');
+         }
+      } catch (error) {
+         console.log(error);
+         Swal.fire('Error', 'No se pudo eliminar el evento', 'error');
+      }
+   };
+};
+
 const eventAddNew = (event) => ({
    type: types.eventAddNew,
    payload: event,
@@ -85,7 +105,7 @@ const eventUpdated = (event) => ({
    payload: event,
 });
 
-export const eventDeleted = (event) => ({
+const eventDeleted = (event) => ({
    type: types.eventDeleted,
    payload: event,
 });
