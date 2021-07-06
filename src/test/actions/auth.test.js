@@ -2,8 +2,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Swal from 'sweetalert2';
 
-import { startLogin } from '../../actions/auth';
+import { startLogin, startRegister } from '../../actions/auth';
 import { types } from '../../types/types';
+import * as fetchModule from '../../helpers/fetch';
 
 // mock para asegurarnos que el sweetalert se halla llamado
 jest.mock('sweetalert2', () => ({
@@ -65,5 +66,37 @@ describe('Pruebas en las acciones Auth', () => {
       actions = store.getActions();
 
       expect(Swal.fire).toHaveBeenCalledWith('Error', 'El usuario o la contraseña es incorrecto', 'error');
+   });
+
+   test('startRegister correcto', async () => {
+      //    mock para simular el login al momento de registrarse, solo en esta prueba
+      fetchModule.fetchSinToken = jest.fn(() => ({
+         json() {
+            return {
+               ok: true,
+               uid: '123',
+               name: 'test2',
+               token: 'ABC123ABC',
+            };
+         },
+      }));
+
+      await store.dispatch(startRegister('test@test.com', '123456', 'Test'));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+         type: types.authLogin,
+         payload: {
+            uid: '123',
+            name: 'test2',
+         },
+      });
+
+      //   Esperamos que se halla guardado el token
+      expect(localStorage.setItem).toHaveBeenCalledWith('x-token', 'ABC123ABC');
+
+      //   evaluamos que se halla llamado con la fecha
+      expect(localStorage.setItem).toHaveBeenCalledWith('token-init-date', expect.any(Number));
    });
 });
