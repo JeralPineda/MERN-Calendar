@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Swal from 'sweetalert2';
 
-import { startLogin, startRegister } from '../../actions/auth';
+import { startChecking, startLogin, startRegister } from '../../actions/auth';
 import { types } from '../../types/types';
 import * as fetchModule from '../../helpers/fetch';
 
@@ -49,7 +49,8 @@ describe('Pruebas en las acciones Auth', () => {
       expect(localStorage.setItem).toHaveBeenCalledWith('token-init-date', expect.any(Number));
 
       //   Si yo quiero extraer el token que fue llamado, argumento con el cual fue llamado un función de jest
-      //   token = localStorage.setItem.mock.calls[0][1]
+      token = localStorage.setItem.mock.calls[0][1]; //token para prueba startCheking
+
       //   console.log((token = localStorage.setItem.mock.calls[0][1]));
    });
 
@@ -84,6 +85,41 @@ describe('Pruebas en las acciones Auth', () => {
       await store.dispatch(startRegister('test@test.com', '123456', 'Test'));
 
       const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+         type: types.authLogin,
+         payload: {
+            uid: '123',
+            name: 'test2',
+         },
+      });
+
+      //   Esperamos que se halla guardado el token
+      expect(localStorage.setItem).toHaveBeenCalledWith('x-token', 'ABC123ABC');
+
+      //   evaluamos que se halla llamado con la fecha
+      expect(localStorage.setItem).toHaveBeenCalledWith('token-init-date', expect.any(Number));
+   });
+
+   test('startChecking correcto', async () => {
+      //    mock para simular el login en el StartCkecking,
+      //   ya que el token no lo podemos obtener y daba el msj que no había token en la petición
+      fetchModule.fetchConToken = jest.fn(() => ({
+         json() {
+            return {
+               ok: true,
+               uid: '123',
+               name: 'test2',
+               token: 'ABC123ABC',
+            };
+         },
+      }));
+
+      await store.dispatch(startChecking());
+
+      const actions = store.getActions();
+
+      localStorage.setItem('x-token', token);
 
       expect(actions[0]).toEqual({
          type: types.authLogin,
