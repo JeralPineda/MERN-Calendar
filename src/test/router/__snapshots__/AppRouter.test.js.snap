@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas en <AppRouter /> debe de mostrar el loader 1`] = `
+<div
+  className="loader-background"
+>
+  <div
+    className="loader"
+  />
+</div>
+`;
