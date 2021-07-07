@@ -22,7 +22,9 @@ const customStyles = {
    },
 };
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') {
+   Modal.setAppElement('#root');
+}
 
 // hora inicio
 const now = moment().minutes(0).seconds(0).add(1, 'hours'); // 3:45:50
