@@ -32,7 +32,54 @@ describe('Pruebas en <AppRouter />', () => {
          </Provider>
       );
 
-      expect(wrapper).toMatchSnapshot();
+      //   expect(wrapper).toMatchSnapshot();
       expect(wrapper.find('.loader').exists()).toBe(true);
+   });
+
+   test('debe de mostrar la ruta publica', () => {
+      const initState = {
+         auth: {
+            checking: false,
+            uid: null,
+         },
+      };
+
+      let store = mockStore(initState);
+
+      const wrapper = mount(
+         <Provider store={store}>
+            <AppRouter />
+         </Provider>
+      );
+
+      //   expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find('.container').exists()).toBe(true);
+   });
+
+   test('debe de mostrar la ruta privada', () => {
+      const initState = {
+         calendar: {
+            events: [],
+         },
+         ui: {
+            modalOpen: false,
+         },
+         auth: {
+            checking: false,
+            uid: '1234',
+            name: 'Jeral',
+         },
+      };
+
+      let store = mockStore(initState);
+
+      const wrapper = mount(
+         <Provider store={store}>
+            <AppRouter />
+         </Provider>
+      );
+
+      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.find('.calendar-screen').exists()).toBe(true);
    });
 });
