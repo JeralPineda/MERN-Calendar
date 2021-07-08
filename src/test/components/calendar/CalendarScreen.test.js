@@ -1,9 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
 
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
 import { CalendarScreen } from '../../../components/calendar/CalendarScreen';
 import { messages } from '../../../helpers/calendar-messages-es';
 import { types } from '../../../types/types';
@@ -14,6 +16,9 @@ jest.mock('../../../actions/events', () => ({
    eventSetActive: jest.fn(),
    eventStartLoading: jest.fn(),
 }));
+
+// mock del localStorage
+Storage.prototype.setItem = jest.fn();
 
 const middleware = [thunk];
 const mockStore = configureStore(middleware);
@@ -55,5 +60,11 @@ describe('Pruebas en <CalendarScreen />', () => {
 
       calendar.prop('onSelectEvent')({ start: 'Hola' });
       expect(eventSetActive).toHaveBeenCalledWith({ start: 'Hola' });
+
+      //   Acción
+      act(() => {
+         calendar.prop('onView')('week');
+         expect(localStorage.setItem).toHaveBeenCalledWith('lastView', 'week');
+      });
    });
 });
