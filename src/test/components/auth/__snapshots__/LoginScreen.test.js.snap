@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas en <LoginScreen /> debe de mostrarse correctamente 1`] = `
+<section>
+  <div
+    className="container"
+  >
+    <div
+      className="user signinBx"
+    >
+      <div
+        className="imgBx"
+      >
+        <img
+          alt=""
+          src="./images/5.jpg"
+        />
+      </div>
+      <div
+        className="formBx"
+      >
+        <form
+          onSubmit={[Function]}
+        >
+          <h2>
+            Ingreso
+          </h2>
+          <input
+            name="lEmail"
+            onChange={[Function]}
+            placeholder="Correo"
+            type="text"
+            value=""
+          />
+          <input
+            name="lPassword"
+            onChange={[Function]}
+            placeholder="Contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            name=""
+            type="submit"
+            value="Ingresar"
+          />
+          <p
+            className="signup"
+          >
+            No tienes una cuenta ?
+            <a
+              href="/login"
+              onClick={[Function]}
+            >
+              Crear cuenta
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <div
+      className="user signupBx"
+    >
+      <div
+        className="formBx"
+      >
+        <form
+          onSubmit={[Function]}
+        >
+          <h2>
+            Registro
+          </h2>
+          <input
+            name="rName"
+            onChange={[Function]}
+            placeholder="Nombre"
+            type="text"
+            value=""
+          />
+          <input
+            name="rEmail"
+            onChange={[Function]}
+            placeholder="Correo"
+            type="email"
+            value=""
+          />
+          <input
+            name="rPassword1"
+            onChange={[Function]}
+            placeholder="Contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            name="rPassword2"
+            onChange={[Function]}
+            placeholder="Confirmar Contraseña"
+            type="password"
+            value=""
+          />
+          <input
+            name=""
+            type="submit"
+            value="Crear cuenta"
+          />
+          <p
+            className="signup"
+          >
+            Ya tienes una cuenta ?
+            <a
+              href="/login"
+              onClick={[Function]}
+            >
+              Ingresar
+            </a>
+          </p>
+        </form>
+      </div>
+      <div
+        className="imgBx"
+      >
+        <img
+          alt=""
+          src="./images/1.jpg"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+`;
