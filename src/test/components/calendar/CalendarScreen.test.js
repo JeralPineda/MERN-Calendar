@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { CalendarScreen } from '../../../components/calendar/CalendarScreen';
 import { messages } from '../../../helpers/calendar-messages-es';
+import { types } from '../../../types/types';
 
 // mock para simular el evento startDelete
 // jest.mock('../../../actions/events', () => ({
@@ -45,7 +46,9 @@ describe('Pruebas en <CalendarScreen />', () => {
       const calendar = wrapper.find('Calendar');
 
       const calendarMessages = calendar.prop('messages');
-
       expect(calendarMessages).toEqual(messages);
+
+      calendar.prop('onDoubleClickEvent')();
+      expect(store.dispatch).toHaveBeenCalledWith({ type: types.uiOpenModal });
    });
 });
