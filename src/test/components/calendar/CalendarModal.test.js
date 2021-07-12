@@ -26,7 +26,7 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 const now = moment().minutes(0).seconds(0).add(1, 'hours'); // 3:00:00
-const nowPlus1 = now.clone().add(1, 'hours');
+const after = now.clone().add(1, 'hours'); // 3:45:50
 
 const initState = {
    calendar: {
@@ -35,7 +35,7 @@ const initState = {
          title: 'Hola Mundo',
          notes: 'Algunas notas',
          start: now.toDate(),
-         end: nowPlus1.toDate(),
+         end: after.toDate(),
       },
    },
    auth: {
