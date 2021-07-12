@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min';
+import { act } from '@testing-library/react';
 
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
