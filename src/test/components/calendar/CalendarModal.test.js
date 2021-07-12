@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import '@testing-library/jest-dom';
 import { CalendarModal } from '../../../components/calendar/CalendarModal';
-import { eventStartUpdated, eventClearActiveEvent } from '../../../actions/events';
+import { eventStartUpdated, eventClearActiveEvent, eventStartAddNew } from '../../../actions/events';
 
 // import { act } from '@testing-library/react';
 // import Swal from 'sweetalert2';
@@ -16,10 +16,10 @@ import { eventStartUpdated, eventClearActiveEvent } from '../../../actions/event
 // jest.mock('sweetalert2', () => ({
 //    fire: jest.fn(),
 // }));
-
 jest.mock('../../../actions/events', () => ({
    eventStartUpdated: jest.fn(),
    eventClearActiveEvent: jest.fn(),
+   eventStartAddNew: jest.fn(),
 }));
 
 const middlewares = [thunk];
@@ -80,5 +80,51 @@ describe('Pruebas en <CalendarModal />', () => {
       });
 
       expect(wrapper.find('input[name="title"]').hasClass('is-invalid')).toBe(true);
+   });
+
+   test('debe de crear un nuevo evento', () => {
+      const initState = {
+         calendar: {
+            events: [],
+            activeEvent: null,
+         },
+         auth: {
+            uid: '123',
+            name: 'Fernando',
+         },
+         ui: {
+            modalOpen: true,
+         },
+      };
+
+      const store = mockStore(initState);
+      store.dispatch = jest.fn();
+
+      const wrapper = mount(
+         <Provider store={store}>
+            <CalendarModal />
+         </Provider>
+      );
+
+      wrapper.find('input[name="title"]').simulate('change', {
+         target: {
+            name: 'title',
+            value: 'Hola pruebas',
+         },
+      });
+
+      //   submit del formulario
+      wrapper.find('form').simulate('submit', {
+         preventDefault() {},
+      });
+
+      expect(eventStartAddNew).toHaveBeenCalledWith({
+         end: expect.anything(),
+         start: expect.anything(),
+         title: 'Hola pruebas',
+         notes: '',
+      });
+
+      expect(eventStartAddNew).toHaveBeenCalled();
    });
 });
