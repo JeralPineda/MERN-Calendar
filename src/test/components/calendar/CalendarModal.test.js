@@ -8,18 +8,18 @@ import moment from 'moment';
 
 import '@testing-library/jest-dom';
 import { CalendarModal } from '../../../components/calendar/CalendarModal';
-// import { eventStartUpdate, eventClearActiveEvent, eventStartAddNew } from '../../../actions/events';
+import { eventStartUpdated, eventClearActiveEvent } from '../../../actions/events';
+
 // import { act } from '@testing-library/react';
 // import Swal from 'sweetalert2';
 
-jest.mock('sweetalert2', () => ({
-   fire: jest.fn(),
-}));
+// jest.mock('sweetalert2', () => ({
+//    fire: jest.fn(),
+// }));
 
 jest.mock('../../../actions/events', () => ({
-   eventStartUpdate: jest.fn(),
+   eventStartUpdated: jest.fn(),
    eventClearActiveEvent: jest.fn(),
-   eventStartAddNew: jest.fn(),
 }));
 
 const middlewares = [thunk];
@@ -63,5 +63,14 @@ describe('Pruebas en <CalendarModal />', () => {
 
    test('debe de mostrar el modal', () => {
       expect(wrapper.find('Modal').prop('isOpen')).toBe(true);
+   });
+
+   test('debe de llamar la acción de actualizar y cerrar modal', () => {
+      wrapper.find('form').simulate('submit', {
+         preventDefault() {},
+      });
+
+      expect(eventStartUpdated).toHaveBeenCalledWith(initState.calendar.activeEvent);
+      expect(eventClearActiveEvent).toHaveBeenCalled();
    });
 });
