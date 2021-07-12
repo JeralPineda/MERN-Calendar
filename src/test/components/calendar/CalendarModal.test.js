@@ -73,4 +73,12 @@ describe('Pruebas en <CalendarModal />', () => {
       expect(eventStartUpdated).toHaveBeenCalledWith(initState.calendar.activeEvent);
       expect(eventClearActiveEvent).toHaveBeenCalled();
    });
+
+   test('debe de mostrar error si falta el titulo', () => {
+      wrapper.find('form').simulate('submit', {
+         preventDefault() {},
+      });
+
+      expect(wrapper.find('input[name="title"]').hasClass('is-invalid')).toBe(true);
+   });
 });
